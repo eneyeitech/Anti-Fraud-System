@@ -218,6 +218,24 @@ files:
     management.endpoint.shutdown.enabled=true
     spring.jackson.serialization.INDENT_OUTPUT=true
   learner_created: false
+- name: src/antifraud/exception/BadAmountException.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/presentation/RestApiController.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/business/ResultDTO.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/business/TransactionStatus.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/business/AmountDTO.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/232/stages/1161/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Fri, 15 Apr 2022 19:05:03 UTC
 record: -1

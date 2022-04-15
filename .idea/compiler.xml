@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
@@ -12,6 +13,12 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17">
+      <module name="Anti-Fraud_System.Anti-Fraud_System-task-build-classes-java.main" target="11" />
+      <module name="Anti-Fraud_System.Anti-Fraud_System-task-build-generated-sources-annotationProcessor-java.main" target="11" />
+      <module name="Anti-Fraud_System.Anti-Fraud_System-task-build-generated-sources-headers-java.main" target="11" />
+      <module name="Anti-Fraud_System.Anti-Fraud_System-task-build-reports-tests.main" target="11" />
+      <module name="Anti-Fraud_System.Anti-Fraud_System-task-build-test-results.main" target="11" />
+      <module name="Anti-Fraud_System.Anti-Fraud_System-task-build-tmp.main" target="11" />
       <module name="Anti-Fraud_System.Anti-Fraud_System-task.main" target="11" />
       <module name="Anti-Fraud_System.util.main" target="11" />
     </bytecodeTargetLevel>

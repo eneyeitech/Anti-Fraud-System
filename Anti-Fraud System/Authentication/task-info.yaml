@@ -484,6 +484,142 @@ files:
         };
     }
   learner_created: false
+- name: src/antifraud/presentation/RestApiController.java
+  visible: true
+  text: |
+    package antifraud.presentation;
+
+    import antifraud.business.AmountDTO;
+    import antifraud.business.ResultDTO;
+    import antifraud.business.TransactionStatus;
+    import antifraud.exception.BadAmountException;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.RequestBody;
+    import org.springframework.web.bind.annotation.RestController;
+
+    import java.util.Arrays;
+
+    @RestController
+    public class RestApiController {
+
+        @PostMapping("/api/antifraud/transaction")
+        public ResultDTO acceptTransaction(@RequestBody AmountDTO amountDTO) {
+            return new ResultDTO(retrieveTransactionStatus(amountDTO.getAmount()).name());
+        }
+
+        public TransactionStatus retrieveTransactionStatus(long amount) {
+            return Arrays.stream(TransactionStatus.values())
+                    .filter(val -> Math.max(val.getMin(), amount) == Math.min(amount, val.getMax()))
+                    .findFirst()
+                    .orElseThrow(BadAmountException::new);
+        }
+    }
+  learner_created: true
+- name: src/antifraud/business/AmountDTO.java
+  visible: true
+  text: |
+    package antifraud.business;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Data
+    public class AmountDTO {
+        private long amount;
+    }
+  learner_created: true
+- name: src/antifraud/exception/BadAmountException.java
+  visible: true
+  text: |
+    package antifraud.exception;
+
+    import org.springframework.http.HttpStatus;
+    import org.springframework.web.bind.annotation.ResponseStatus;
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Bad Value")
+    public class BadAmountException extends RuntimeException{ }
+  learner_created: true
+- name: src/antifraud/business/TransactionStatus.java
+  visible: true
+  text: |
+    package antifraud.business;
+
+    import lombok.Getter;
+
+    @Getter
+    public enum TransactionStatus {
+        ALLOWED(1, 200),
+        MANUAL_PROCESSING(201, 1500),
+        PROHIBITED(1501, Long.MAX_VALUE);
+
+        private final long min;
+        private final long max;
+
+        TransactionStatus(long min, long max) {
+            this.min = min;
+            this.max = max;
+        }
+    }
+  learner_created: true
+- name: src/antifraud/business/ResultDTO.java
+  visible: true
+  text: |
+    package antifraud.business;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+
+    @AllArgsConstructor
+    @Data
+    public class ResultDTO {
+        private String result;
+    }
+  learner_created: true
+- name: src/antifraud/utility/RestAuthenticationEntryPoint.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/business/UserInfoService.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/business/UserInfo.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/utility/WebSecurityConfigurator.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/business/Converter.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/business/UserConverter.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/exception/UserExistsException.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/exception/UserNotFound.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/business/StatusDTO.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/business/UserDTO.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/business/RepositoryService.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/persistence/UserRepository.java
+  visible: true
+  learner_created: true
+- name: src/antifraud/persistence/UserEntity.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/232/stages/1162/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Fri, 15 Apr 2022 19:55:55 UTC
 record: -1

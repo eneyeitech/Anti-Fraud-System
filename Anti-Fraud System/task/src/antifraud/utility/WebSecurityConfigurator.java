@@ -38,6 +38,7 @@ public class WebSecurityConfigurator extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/api/auth/user/**").hasRole(Role.ADMINISTRATOR.name())
                 .antMatchers("/api/antifraud/access/**", "/api/auth/access/**", "/api/auth/role/**").hasRole(Role.ADMINISTRATOR.name())
                 .antMatchers("/api/auth/list/**").hasAnyRole(Role.ADMINISTRATOR.name(), Role.SUPPORT.name())
+                .antMatchers("/api/antifraud/**").hasRole(Role.SUPPORT.name())
                 .antMatchers("/actuator/shutdown").permitAll() // needs to run test
                 .anyRequest().authenticated()
                 .and()

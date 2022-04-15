@@ -1,8 +1,6 @@
 package antifraud.presentation;
 
 import antifraud.business.*;
-import antifraud.exception.BadAmountException;
-import antifraud.business.UserEntity;
 import antifraud.exception.BadRequestException;
 import antifraud.exception.RoleIsAlreadyProvided;
 import antifraud.utility.Operation;
@@ -11,31 +9,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-public class RestApiController {
+@Validated
+public class UserApiController {
     private final RepositoryService repository;
     private final Converter<UserEntity, UserDTO> userConverter;
     private final PasswordEncoder passwordEncoder;
+    private final TransactionStatusResolver statusResolver;
 
     @Autowired
-    public RestApiController(RepositoryService repository,
+    public UserApiController(RepositoryService repository,
                              Converter<UserEntity, UserDTO> userConverter,
-                             PasswordEncoder passwordEncoder) {
+                             PasswordEncoder passwordEncoder,
+                             TransactionStatusResolver statusResolver) {
         this.repository = repository;
         this.userConverter = userConverter;
         this.passwordEncoder = passwordEncoder;
+        this.statusResolver = statusResolver;
     }
 
     @PostMapping("/api/antifraud/transaction")
-    public ResultDTO acceptTransaction(@RequestBody AmountDTO amountDTO) {
-        return new ResultDTO(retrieveTransactionStatus(amountDTO.getAmount()).name());
+    public ResultDTO acceptTransaction(@RequestBody @Valid TransactionDTO transactionDTO) {
+        return statusResolver.resolve(transactionDTO);
     }
 
     @PostMapping("/api/auth/user")
@@ -83,13 +85,6 @@ public class RestApiController {
         Operation operation = Operation.valueOf(operationDTO.getOperation());
         userEntity.setLocked(operation == Operation.LOCK);
         repository.update(userEntity);
-        return operation == Operation.LOCK ? new StatusDTO.Locked(username) : new StatusDTO.Unlocked(username);
-    }
-
-    public TransactionStatus retrieveTransactionStatus(long amount) {
-        return Arrays.stream(TransactionStatus.values())
-                .filter(val -> Math.max(val.getMin(), amount) == Math.min(amount, val.getMax()))
-                .findFirst()
-                .orElseThrow(BadAmountException::new);
+        return operation == Operation.LOCK ? new StatusDTO.UserLocked(username) : new StatusDTO.UserUnlocked(username);
     }
 }

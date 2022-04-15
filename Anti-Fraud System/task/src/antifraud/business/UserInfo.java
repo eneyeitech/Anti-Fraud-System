@@ -1,6 +1,5 @@
 package antifraud.business;
 
-import antifraud.persistence.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,11 +11,13 @@ public class UserInfo implements UserDetails {
     private final String username;
     private final String password;
     private final List<GrantedAuthority> rolesAndAuthorities;
+    private final boolean isLocked;
 
     public UserInfo(UserEntity user) {
         username = user.getUsername();
         password = user.getPassword();
-        rolesAndAuthorities = List.of(new SimpleGrantedAuthority(user.getRole()));
+        rolesAndAuthorities = List.of(new SimpleGrantedAuthority(user.getRole().withPrefix()));
+        isLocked = user.isLocked();
     }
 
     @Override
@@ -42,7 +43,7 @@ public class UserInfo implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !isLocked;
     }
 
     @Override

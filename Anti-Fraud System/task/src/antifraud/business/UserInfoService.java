@@ -1,6 +1,5 @@
 package antifraud.business;
 
-import antifraud.persistence.UserEntity;
 import antifraud.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

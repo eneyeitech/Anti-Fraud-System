@@ -33,7 +33,11 @@ public class WebSecurityConfigurator extends WebSecurityConfigurerAdapter {
                 .csrf().disable().headers().frameOptions().disable() // for Postman, the H2 console
                 .and()
                 .authorizeRequests() // manage access
-                .antMatchers(HttpMethod.POST, "/api/auth/user").permitAll()
+                .antMatchers("/api/antifraud/transaction/**").hasRole(Role.MERCHANT.name())
+                .antMatchers(HttpMethod.POST,"/api/auth/user/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/auth/user/**").hasRole(Role.ADMINISTRATOR.name())
+                .antMatchers("/api/antifraud/access/**", "/api/auth/access/**", "/api/auth/role/**").hasRole(Role.ADMINISTRATOR.name())
+                .antMatchers("/api/auth/list/**").hasAnyRole(Role.ADMINISTRATOR.name(), Role.SUPPORT.name())
                 .antMatchers("/actuator/shutdown").permitAll() // needs to run test
                 .anyRequest().authenticated()
                 .and()
@@ -42,7 +46,7 @@ public class WebSecurityConfigurator extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/h2-console/**");
     }
 

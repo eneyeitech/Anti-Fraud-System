@@ -1,5 +1,6 @@
-package antifraud.persistence;
+package antifraud.business;
 
+import antifraud.utility.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class UserEntity {
     private String username;
     @NonNull
     private String password;
-
-    private String role = "ROLE_USER";
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    private boolean isLocked;
 }

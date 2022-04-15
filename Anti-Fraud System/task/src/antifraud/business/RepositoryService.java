@@ -2,8 +2,8 @@ package antifraud.business;
 
 import antifraud.exception.UserExistsException;
 import antifraud.exception.UserNotFound;
-import antifraud.persistence.UserEntity;
 import antifraud.persistence.UserRepository;
+import antifraud.utility.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +22,8 @@ public class RepositoryService {
         if (userRepository.existsByUsernameIgnoreCase(userEntity.getUsername())) {
             throw new UserExistsException();
         }
+        userEntity.setRole(countUsers() == 0 ? Role.ADMINISTRATOR : Role.MERCHANT);
+        userEntity.setLocked(userEntity.getRole() != Role.ADMINISTRATOR);
         return userRepository.save(userEntity);
     }
 
@@ -30,8 +32,19 @@ public class RepositoryService {
     }
 
     public void delete(String username) {
-        UserEntity user = userRepository.findByUsernameIgnoreCase(username)
+        userRepository.delete(findUser(username));
+    }
+
+    public long countUsers() {
+        return userRepository.count();
+    }
+
+    public UserEntity findUser(String username) {
+        return userRepository.findByUsernameIgnoreCase(username)
                 .orElseThrow(UserNotFound::new);
-        userRepository.delete(user);
+    }
+
+    public void update(UserEntity userEntity) {
+        userRepository.save(userEntity);
     }
 }

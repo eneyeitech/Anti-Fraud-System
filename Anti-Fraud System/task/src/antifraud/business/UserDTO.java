@@ -12,7 +12,6 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @Data
 @Builder
-
 public class UserDTO {
     private long id;
     @NotEmpty
@@ -22,4 +21,5 @@ public class UserDTO {
     @NotEmpty
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    private String role;
 }

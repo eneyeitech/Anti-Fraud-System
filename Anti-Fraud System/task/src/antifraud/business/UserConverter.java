@@ -1,6 +1,5 @@
 package antifraud.business;
 
-import antifraud.persistence.UserEntity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,6 +10,7 @@ public class UserConverter implements Converter<UserEntity, UserDTO> {
                 .id(entity.getId())
                 .name(entity.getName())
                 .username(entity.getUsername())
+                .role(entity.getRole().name())
                 .build();
     }
 

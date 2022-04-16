@@ -1,10 +1,9 @@
 package antifraud.business;
 
-import antifraud.exception.BadAmountException;
+import antifraud.persistence.StatusRepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -14,6 +13,7 @@ import java.util.function.Function;
 public class TransactionStatusResolver {
     private final RepositoryService repository;
     private final EntityMapper<TransactionDTO, TransactionEntity> transactionMapper;
+    private final StatusRepositoryService statusRepository;
     private final int CHECK_HOURS_BEFORE_TRANSACTION = 1;
     private static final String AMOUNT_IS_INCORRECT = "amount";
     private static final String CARD_IS_STOLEN = "card-number";
@@ -24,14 +24,16 @@ public class TransactionStatusResolver {
 
     @Autowired
     public TransactionStatusResolver(RepositoryService repository,
-                                     EntityMapper<TransactionDTO, TransactionEntity> transactionMapper) {
+                                     EntityMapper<TransactionDTO, TransactionEntity> transactionMapper,
+                                     StatusRepositoryService statusRepository) {
         this.repository = repository;
         this.transactionMapper = transactionMapper;
+        this.statusRepository = statusRepository;
     }
 
     public ResultDTO resolve(TransactionDTO transactionDTO) {
         TransactionEntity transaction = transactionMapper.toEntity(transactionDTO);
-        TransactionStatus status = retrieveTransactionStatus(transaction.getAmount());
+        TransactionStatus status = statusRepository.getStatusWithAmount(transaction.getAmount());
         Set<String> info = new TreeSet<>();
         if (status != TransactionStatus.ALLOWED) {
             info.add(AMOUNT_IS_INCORRECT);
@@ -59,7 +61,6 @@ public class TransactionStatusResolver {
         if (status == TransactionStatus.ALLOWED) {
             info.add(ALL_IS_CORRECT);
         }
-        System.out.println(status);
         return new ResultDTO(status.name(), String.join(", ", info));
     }
 
@@ -107,12 +108,5 @@ public class TransactionStatusResolver {
         if (status == TransactionStatus.MANUAL_PROCESSING) {
             info.clear();
         }
-    }
-
-    public TransactionStatus retrieveTransactionStatus(long amount) {
-        return Arrays.stream(TransactionStatus.values())
-                .filter(val -> Math.max(val.getMin(), amount) == Math.min(amount, val.getMax()))
-                .findFirst()
-                .orElseThrow(BadAmountException::new);
     }
 }

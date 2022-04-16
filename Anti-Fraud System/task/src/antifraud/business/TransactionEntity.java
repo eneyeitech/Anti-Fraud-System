@@ -18,7 +18,7 @@ public class TransactionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NonNull
-    private long amount;
+    private Long amount;
     @NonNull
     private String ip;
     @NonNull
@@ -30,4 +30,5 @@ public class TransactionEntity {
     private LocalDateTime date;
     @Enumerated(EnumType.STRING)
     private TransactionStatus status = TransactionStatus.PROHIBITED;
+    private TransactionStatus feedback;
 }

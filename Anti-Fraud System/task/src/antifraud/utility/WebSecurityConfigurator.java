@@ -33,7 +33,7 @@ public class WebSecurityConfigurator extends WebSecurityConfigurerAdapter {
                 .csrf().disable().headers().frameOptions().disable() // for Postman, the H2 console
                 .and()
                 .authorizeRequests() // manage access
-                .antMatchers("/api/antifraud/transaction/**").hasRole(Role.MERCHANT.name())
+                .antMatchers(HttpMethod.POST,"/api/antifraud/transaction/**").hasRole(Role.MERCHANT.name())
                 .antMatchers(HttpMethod.POST,"/api/auth/user/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/auth/user/**").hasRole(Role.ADMINISTRATOR.name())
                 .antMatchers("/api/antifraud/access/**", "/api/auth/access/**", "/api/auth/role/**").hasRole(Role.ADMINISTRATOR.name())

@@ -1,5 +1,6 @@
 package antifraud.business;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class TransactionDTO {
+    private long transactionId;
     @Min(value = 1, message = "Wrong amount!")
     private long amount;
     @Pattern(regexp = Regexes.IP_FORMAT, message = "Wrong ip format!")
@@ -22,4 +24,8 @@ public class TransactionDTO {
     @EnumValueCorrect(enumClazz = WorldRegion.class, message = "Incorrect region!")
     private String region;
     private LocalDateTime date;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String result;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String feedback;
 }

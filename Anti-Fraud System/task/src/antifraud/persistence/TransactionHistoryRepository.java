@@ -24,4 +24,8 @@ interface TransactionHistoryRepository extends CrudRepository<TransactionEntity,
             LocalDateTime publicationDateStart,
             LocalDateTime publicationDateEnd
     );
+
+    List<TransactionEntity> findAllByOrderByIdAsc();
+
+    List<TransactionEntity> findAllByNumber(String number);
 }

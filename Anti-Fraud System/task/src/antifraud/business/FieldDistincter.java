@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 public class FieldDistincter<T> implements Predicate<T> {
     private final Function<T, Object> function;
     private final Set<Object> seenObjects;
-    FieldDistincter(Function<T, Object> function) {
+    public FieldDistincter(Function<T, Object> function) {
         this.function = function;
         this.seenObjects = new HashSet<>();
     }

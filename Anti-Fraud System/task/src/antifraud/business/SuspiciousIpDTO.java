@@ -15,6 +15,6 @@ public class SuspiciousIpDTO {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private long id;
     @NonNull
-    @Pattern(regexp = "((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)(\\.(?!$)|$)){4}", message = "Wrong IP format!")
+    @Pattern(regexp = Regexes.IP_FORMAT, message = "Wrong ip format!")
     private String ip;
 }

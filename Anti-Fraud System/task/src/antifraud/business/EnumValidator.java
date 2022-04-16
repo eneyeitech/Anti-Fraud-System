@@ -5,8 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleValidator implements ConstraintValidator<RoleCorrect, String> {
-
+public class EnumValidator implements ConstraintValidator<EnumValueCorrect, String> {
     List<String> valueList = null;
 
     @Override
@@ -15,7 +14,7 @@ public class RoleValidator implements ConstraintValidator<RoleCorrect, String> {
     }
 
     @Override
-    public void initialize(RoleCorrect constraintAnnotation) {
+    public void initialize(EnumValueCorrect constraintAnnotation) {
         valueList = new ArrayList<>();
         Class<? extends Enum<?>> enumClass = constraintAnnotation.enumClazz();
 

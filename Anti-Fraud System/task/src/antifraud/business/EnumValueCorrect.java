@@ -7,12 +7,12 @@ import javax.validation.constraints.NotNull;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = RoleValidator.class)
+@Constraint(validatedBy = EnumValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @NotNull(message = "Value cannot be null")
 @ReportAsSingleViolation
-public @interface RoleCorrect {
+public @interface EnumValueCorrect {
     Class<? extends Enum<?>> enumClazz();
 
     String message() default "Value is not valid";

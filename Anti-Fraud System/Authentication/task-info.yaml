@@ -599,7 +599,7 @@ files:
 - name: src/antifraud/exception/UserExistsException.java
   visible: true
   learner_created: true
-- name: src/antifraud/exception/UserNotFound.java
+- name: src/antifraud/exception/UserNotFoundException.java
   visible: true
   learner_created: true
 - name: src/antifraud/business/StatusDTO.java
@@ -617,7 +617,7 @@ files:
 - name: src/antifraud/persistence/UserEntity.java
   visible: true
   learner_created: true
-feedback_link: https://hyperskill.org/projects/232/stages/1162/implement#comment
+feedback_link: https://hyperskill.org/learn/step/18068#comment
 status: Solved
 feedback:
   message: Congratulations!

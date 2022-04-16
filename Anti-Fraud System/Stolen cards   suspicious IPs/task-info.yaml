@@ -1079,7 +1079,7 @@ files:
         };
     }
   learner_created: false
-- name: src/antifraud/exception/UserNotFound.java
+- name: src/antifraud/exception/UserNotFoundException.java
   visible: true
   text: |
     package antifraud.exception;
@@ -1123,7 +1123,7 @@ files:
         private String role;
     }
   learner_created: true
-- name: src/antifraud/exception/RoleIsAlreadyProvided.java
+- name: src/antifraud/exception/RoleIsAlreadyProvidedException.java
   visible: true
   text: |
     package antifraud.exception;
@@ -1394,7 +1394,7 @@ files:
     @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Bad Value")
     public class BadAmountException extends RuntimeException{ }
   learner_created: true
-- name: src/antifraud/business/RoleValidator.java
+- name: src/antifraud/business/EnumValidator.java
   visible: true
   text: |-
     package antifraud.business;
@@ -1493,7 +1493,7 @@ files:
         private boolean isLocked;
     }
   learner_created: true
-- name: src/antifraud/business/RoleCorrect.java
+- name: src/antifraud/business/EnumValueCorrect.java
   visible: true
   text: |
     package antifraud.business;
@@ -1821,9 +1821,9 @@ files:
 - name: src/antifraud/presentation/UserApiController.java
   visible: true
   learner_created: true
-feedback_link: https://hyperskill.org/projects/232/stages/1164/implement#comment
+feedback_link: https://hyperskill.org/learn/step/18070#comment
 status: Solved
 feedback:
   message: Congratulations!
   time: Fri, 15 Apr 2022 21:54:16 UTC
-record: -1
+record: 4

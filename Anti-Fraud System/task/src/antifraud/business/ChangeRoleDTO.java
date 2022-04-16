@@ -11,6 +11,6 @@ import javax.validation.constraints.NotEmpty;
 public class ChangeRoleDTO {
     @NotEmpty
     private String username;
-    @RoleCorrect(enumClazz = Role.class, message = "Role incorrect")
+    @EnumValueCorrect(enumClazz = Role.class, message = "Role incorrect!")
     private String role;
 }

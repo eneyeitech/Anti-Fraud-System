@@ -770,7 +770,7 @@ files:
         }
     }
   learner_created: true
-- name: src/antifraud/exception/UserNotFound.java
+- name: src/antifraud/exception/UserNotFoundException.java
   visible: true
   text: |
     package antifraud.exception;
@@ -1184,7 +1184,7 @@ files:
 - name: src/antifraud/exception/BadRequestException.java
   visible: true
   learner_created: true
-- name: src/antifraud/exception/RoleIsAlreadyProvided.java
+- name: src/antifraud/exception/RoleIsAlreadyProvidedException.java
   visible: true
   learner_created: true
 - name: src/antifraud/business/ChangeRoleDTO.java
@@ -1229,13 +1229,13 @@ files:
 - name: src/antifraud/business/OperationValidator.java
   visible: true
   learner_created: true
-- name: src/antifraud/business/RoleCorrect.java
+- name: src/antifraud/business/EnumValueCorrect.java
   visible: true
   learner_created: true
-- name: src/antifraud/business/RoleValidator.java
+- name: src/antifraud/business/EnumValidator.java
   visible: true
   learner_created: true
-feedback_link: https://hyperskill.org/projects/232/stages/1163/implement#comment
+feedback_link: https://hyperskill.org/learn/step/18069#comment
 status: Solved
 feedback:
   message: Congratulations!

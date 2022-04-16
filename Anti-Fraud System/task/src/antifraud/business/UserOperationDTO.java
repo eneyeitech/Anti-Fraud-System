@@ -11,6 +11,6 @@ import javax.validation.constraints.NotEmpty;
 public class UserOperationDTO {
     @NotEmpty
     private String username;
-    @OperationCorrect(enumClazz = Operation.class, message = "Operation must be LOCK or UNLOCK!")
+    @EnumValueCorrect(enumClazz = Operation.class, message = "Operation must be LOCK or UNLOCK!")
     private String operation;
 }
